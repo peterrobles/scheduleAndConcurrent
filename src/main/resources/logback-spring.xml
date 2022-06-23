@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">  <!--Use debug="true" for logback configuration troubleshooting-->
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <logger name="org.springboot" level="ERROR" />
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.apache.camel" level="INFO" />
+    <logger name="org.hibernate" level="ERROR" />
+
+    <springProfile name="prod">
+        <property name="LOG_FILE_MAX_SIZE" value="5MB" />
+        <property name="LOG_TOTAL_SIZE_CAP" value="50MB" />
+        <property name="LOG_TOTAL_MAX_HISTORY" value="20" />
+
+        <root level="ERROR">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="TRACE">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="qa">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+
+    </springProfile>
+
+</configuration>
